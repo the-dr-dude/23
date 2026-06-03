@@ -16,3 +16,15 @@ body {
   justify-content: center;
   min-height: 100vh;
 }
+
+#radio-container {
+  position: relative;
+  width: 90vw;
+  max-width: 480px;
+}
+
+#radio-base {
+  width: 100%;
+  height: auto;
+  display: block;
+}
