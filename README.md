@@ -1,4 +1,4 @@
-# A Tiny Radio
+# Tiny Radio
 
 ## Technical info (don't worry about it!!!)
 
