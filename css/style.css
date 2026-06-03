@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
 }
@@ -27,4 +28,40 @@ body {
   width: 100%;
   height: auto;
   display: block;
+}
+
+#antenna-mount {
+  position: absolute;
+  width: 4.5%;
+  left: 72.25%;
+  top: 35.9%;
+  z-index: 2;
+}
+
+#antenna-stick {
+  position: absolute;
+  width: 14%;
+  left: 62.5%;
+  top: 15%;
+  transform-origin: 77.2% 95.9%;
+  animation: sway 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes sway {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(1.5deg);
+  }
+
+  75% {
+    transform: rotate(-1.5deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
 }
