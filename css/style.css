@@ -98,3 +98,13 @@ body {
   pointer-events: none;
 }
 
+#big-knob {
+  position: absolute;
+  width: 2%;
+  top: 54%;
+  left: 70%;
+  z-index: 3;
+  cursor: grab;
+  transform-origin: center center;
+}
+
