@@ -71,11 +71,11 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 100%;
+  bottom: 88%;
   font-family: 'Nunito', sans-serif;
   color: #3d3d28;
   text-align: center;
-  padding: 0 18px 20px;
+  padding: 0 18px 0;
   opacity: 0;
   transition: opacity 400ms ease;
   pointer-events: none;
