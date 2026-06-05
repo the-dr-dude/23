@@ -91,7 +91,9 @@ body {
   height: auto;
   top: 44.45%;
   left: var(--needle-x, 25.1932%);
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateZ(0);
+  transition: left 80ms linear;
+  will-change: left;
   z-index: 3;
   pointer-events: none;
 }
