@@ -34,8 +34,8 @@ let smallKnobAngle = 0;
 function rotateKnob(el, angleDelta) {
     if (el === bigKnob) bigKnobAngle += angleDelta;
     if (el === smallKnob) smallKnobAngle += angleDelta;
-    bigKnob.style.transform = `rotate(${bigKnobAngle}deg)`;
-    smallKnob.style.transform = `rotate(${smallKnobAngle}deg)`;
+    if (bigKnob) bigKnob.style.transform = `rotate(${bigKnobAngle}deg)`;
+    if (smallKnob) smallKnob.style.transform = `rotate(${smallKnobAngle}deg)`;
 }
 
 // ── hold to repeat ─────────────────────────────────────────
@@ -75,13 +75,11 @@ function bindZone(id, delta, knob) {
     el.addEventListener('touchend', stopHold);
     el.addEventListener('touchcancel', stopHold);
 
-    // mouse support for desktop testing
     el.addEventListener('mousedown', () => startHold(delta, knob));
-    el.addEventListener('mouseup', stopHold);
-    el.addEventListener('mouseleave', stopHold);
 }
 
-// init
+document.addEventListener('mouseup', stopHold);
+
 document.addEventListener('DOMContentLoaded', () => {
     setFrequency(FREQ_MIN);
 
