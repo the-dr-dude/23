@@ -1,0 +1,175 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #ece9d8;
+  color: #3d3d28;
+  min-height: 100vh;
+  padding: 16px;
+  max-width: 640px;
+  margin: 0 auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0 20px;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.back {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #3d3d28;
+  text-decoration: none;
+  border-radius: 50%;
+  background: rgba(61, 61, 40, 0.08);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+#empty {
+  padding: 32px 8px;
+  text-align: center;
+  opacity: 0.6;
+  font-size: 0.95rem;
+}
+
+#entries {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#entries li {
+  background: #f6f3e3;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.freq {
+  font-size: 0.8rem;
+  opacity: 0.55;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.text {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  opacity: 0.85;
+}
+
+#backup {
+  padding-top: 8px;
+  border-top: 1px solid rgba(61, 61, 40, 0.15);
+}
+
+#backup h2 {
+  font-size: 1.05rem;
+  margin: 12px 0 4px;
+  font-weight: 700;
+}
+
+.hint {
+  font-size: 0.85rem;
+  opacity: 0.65;
+  margin-bottom: 12px;
+}
+
+.code-row,
+.import-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#export-code {
+  flex: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  background: #f6f3e3;
+  padding: 10px 12px;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  user-select: all;
+}
+
+button,
+input {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #3d3d28;
+  min-height: 44px;
+}
+
+button {
+  background: #3d3d28;
+  color: #ece9d8;
+  cursor: pointer;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+input {
+  flex: 1;
+  background: #f6f3e3;
+  color: #3d3d28;
+  min-width: 0;
+}
+
+.status {
+  font-size: 0.85rem;
+  min-height: 1.2em;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.status.show {
+  opacity: 1;
+}
+
+.status.ok {
+  color: #2d6a2d;
+}
+
+.status.err {
+  color: #a13a3a;
+}

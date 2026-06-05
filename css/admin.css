@@ -1,0 +1,14 @@
+.counter {
+  margin-left: auto;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+#entries li.found {
+  border-left: 3px solid #2d6a2d;
+}
+
+#entries li.unfound {
+  border-left: 3px solid rgba(61, 61, 40, 0.2);
+}
+

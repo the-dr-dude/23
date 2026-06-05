@@ -1,3 +1,27 @@
+const { reasons } = JSON.parse(atob(REASONS_DATA));
+const freqMap = new Map(reasons.map(r => [r.frequency.toFixed(1), r]));
+
+const messageEl = document.getElementById('message');
+const msgTitle = document.getElementById('msg-title');
+const msgText = document.getElementById('msg-text');
+const journalLink = document.getElementById('journal-link');
+
+function revealJournal() {
+    if (!journalLink || journalLink.classList.contains('visible')) return;
+    journalLink.classList.add('revealed');
+    requestAnimationFrame(() => journalLink.classList.add('visible'));
+}
+
+function showMessage(title, text) {
+    msgTitle.textContent = title;
+    msgText.textContent = text;
+    messageEl.classList.add('visible');
+}
+
+function hideMessage() {
+    messageEl.classList.remove('visible');
+}
+
 const FREQ_MIN = 1.0;
 const FREQ_MAX = 135.0;
 const STEP_BIG = 1.0;
@@ -20,6 +44,7 @@ const smallKnob = document.getElementById('small-knob');
 
 function setFrequency(val) {
     frequency = Math.round(Math.max(FREQ_MIN, Math.min(FREQ_MAX, val)) * 10) / 10;
+    hideMessage();
     freqNumber.textContent = frequency.toFixed(1);
     const t = (frequency - FREQ_MIN) / (FREQ_MAX - FREQ_MIN);
     const pct = NEEDLE_PCT_MIN + t * (NEEDLE_PCT_MAX - NEEDLE_PCT_MIN);
@@ -42,10 +67,20 @@ function rotateKnob(el, angleDelta) {
     if (smallKnob) smallKnob.style.transform = `rotate(${smallKnobAngle}deg)`;
 }
 
-function startHold(delta, knob) {
+let activeZone = false;
+let activeHeld = false;
+let activeDelta = 0;
+let activeKnob = null;
+
+function startZone(delta, knob) {
+    activeZone = true;
+    activeHeld = false;
+    activeDelta = delta;
+    activeKnob = knob;
     const angleDelta = delta > 0 ? 30 : -30;
 
     holdTimer = setTimeout(() => {
+        activeHeld = true;
         if (step(delta)) rotateKnob(knob, angleDelta);
         holdRepeat = setInterval(() => {
             if (step(delta)) rotateKnob(knob, angleDelta);
@@ -53,11 +88,25 @@ function startHold(delta, knob) {
     }, HOLD_DELAY);
 }
 
-function stopHold() {
+function endZone() {
+    if (!activeZone) return;
     clearTimeout(holdTimer);
     clearInterval(holdRepeat);
     holdTimer = null;
     holdRepeat = null;
+    if (!activeHeld) {
+        const angleDelta = activeDelta > 0 ? 30 : -30;
+        if (step(activeDelta)) rotateKnob(activeKnob, angleDelta);
+    }
+    activeZone = false;
+}
+
+function cancelZone() {
+    clearTimeout(holdTimer);
+    clearInterval(holdRepeat);
+    holdTimer = null;
+    holdRepeat = null;
+    activeZone = false;
 }
 
 function bindZone(id, delta, knob) {
@@ -66,22 +115,50 @@ function bindZone(id, delta, knob) {
 
     el.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        startHold(delta, knob);
+        startZone(delta, knob);
     }, { passive: false });
 
-    el.addEventListener('touchend', stopHold);
-    el.addEventListener('touchcancel', stopHold);
+    el.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        endZone();
+    });
+    el.addEventListener('touchcancel', cancelZone);
 
-    el.addEventListener('mousedown', () => startHold(delta, knob));
+    el.addEventListener('mousedown', () => startZone(delta, knob));
+    el.addEventListener('mouseup', endZone);
 }
 
-document.addEventListener('mouseup', stopHold);
+document.addEventListener('mouseup', cancelZone);
 
 document.addEventListener('DOMContentLoaded', () => {
     setFrequency(FREQ_MIN);
+    if (getFound().size > 0) revealJournal();
 
     bindZone('zone-big-back', -STEP_BIG, bigKnob);
     bindZone('zone-big-forward', +STEP_BIG, bigKnob);
     bindZone('zone-small-back', -STEP_SMALL, smallKnob);
     bindZone('zone-small-forward', +STEP_SMALL, smallKnob);
+
+    document.querySelectorAll('.btn').forEach(btn => {
+        const press = e => { e.preventDefault(); btn.classList.add('pressed'); };
+        const release = () => btn.classList.remove('pressed');
+        btn.addEventListener('mousedown', press);
+        btn.addEventListener('touchstart', press, { passive: false });
+        btn.addEventListener('mouseup', release);
+        btn.addEventListener('mouseleave', release);
+        btn.addEventListener('touchend', release);
+        btn.addEventListener('touchcancel', release);
+    });
+
+    const redBtn = document.getElementById('btn-red');
+    const fireRedBtn = e => {
+        e.preventDefault();
+        const entry = freqMap.get(frequency.toFixed(1));
+        if (!entry) return;
+        showMessage(entry.title, entry.text);
+        addFound(entry.id);
+        revealJournal();
+    };
+    redBtn.addEventListener('mousedown', fireRedBtn);
+    redBtn.addEventListener('touchstart', fireRedBtn, { passive: false });
 });

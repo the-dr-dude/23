@@ -34,9 +34,12 @@ body {
 }
 
 #radio-base {
+  position: relative;
   width: 100%;
   height: auto;
   display: block;
+  z-index: 12;
+  pointer-events: none;
 }
 
 #antenna-mount {
@@ -44,7 +47,7 @@ body {
   width: 4.5%;
   left: 72.25%;
   top: 35.9%;
-  z-index: 2;
+  z-index: 13;
 }
 
 #antenna-stick {
@@ -62,6 +65,40 @@ body {
   25%  { transform: rotate(1.5deg);  }
   75%  { transform: rotate(-1.5deg); }
   100% { transform: rotate(0deg);    }
+}
+
+#message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  font-family: 'Nunito', sans-serif;
+  color: #3d3d28;
+  text-align: center;
+  padding: 0 18px 20px;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
+}
+
+#message.visible {
+  opacity: 1;
+}
+
+#msg-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin-bottom: 4px;
+}
+
+#msg-text {
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.45;
+  opacity: 0.75;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 #freq-display {
@@ -94,7 +131,7 @@ body {
   transform: translateX(-50%) translateZ(0);
   transition: left 80ms linear;
   will-change: left;
-  z-index: 3;
+  z-index: 13;
   pointer-events: none;
 }
 
@@ -103,7 +140,7 @@ body {
   width: 2%;
   top: 54%;
   left: 70%;
-  z-index: 3;
+  z-index: 13;
   cursor: grab;
   transform-origin: 52.5% 205%;
   transition: transform 80ms linear;
@@ -114,15 +151,61 @@ body {
   width: 4.57%;
   top: 67.85%;
   left: 68.74%;
-  z-index: 3;
+  z-index: 13;
   transform-origin: 50.63% 25%;
 }
+
+.btn {
+  position: absolute;
+  width: 6.3%;
+  top: 36.55%;
+  z-index: 11;
+  transition: transform 60ms linear;
+}
+
+.btn.pressed {
+  transform: translateY(5px);
+}
+
+#btn-1  { left: 29.1%; }
+#btn-2  { left: 35.4%; }
+#btn-3  { left: 41.7%; }
+#btn-4  { left: 48.0%; }
+#btn-red { left: 54.3%; }
 
 .zone {
   position: fixed;
   width: 50%;
   height: 50%;
   z-index: 10;
+}
+
+#journal-link {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #3d3d28;
+  color: #ece9d8;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 600ms ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#journal-link.revealed {
+  display: flex;
+}
+
+#journal-link.visible {
+  opacity: 1;
 }
 
 .zone-upper-left  { top: 0;   left: 0;   }

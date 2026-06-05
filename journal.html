@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal</title>
+    <link rel="stylesheet" href="css/journal.css">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="back" aria-label="Back to radio">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        </a>
+        <h1>Journal</h1>
+    </header>
+
+    <main>
+        <p id="empty" hidden>Nothing found yet. Tune the radio and press the red button.</p>
+        <ul id="entries"></ul>
+
+        <section id="backup">
+            <h2>Backup code</h2>
+            <p class="hint">Save this somewhere safe so you don't lose progress if you change device.</p>
+
+            <div class="code-row">
+                <code id="export-code"></code>
+                <button id="copy-btn" type="button">Copy</button>
+            </div>
+
+            <div class="import-row">
+                <input id="import-input" type="text" inputmode="text" autocomplete="off" placeholder="Paste a code">
+                <button id="import-btn" type="button">Restore</button>
+            </div>
+
+            <p id="status" class="status" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/journal.js"></script>
+</body>
+
+</html>
