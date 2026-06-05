@@ -73,7 +73,7 @@ body {
   display: flex;
   align-items: baseline;
   gap: 5px;
-  margin-top: 4px;
+  margin-top: max(-4vw, -21px);
 }
  
 #freq-number {
