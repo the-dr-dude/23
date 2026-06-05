@@ -1,0 +1,13 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"node tools/server.js\" \"nodemon --watch . --ext json --ignore node_modules --exec 'python3 tools/encode.py'\"",
+    "start": "node tools/server.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2"
+  }
+}

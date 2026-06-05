@@ -27,7 +27,9 @@ function setFrequency(val) {
 }
 
 function step(delta) {
+    const prev = frequency;
     setFrequency(frequency + delta);
+    return frequency !== prev;
 }
 
 let bigKnobAngle = 0;
@@ -42,13 +44,11 @@ function rotateKnob(el, angleDelta) {
 
 function startHold(delta, knob) {
     const angleDelta = delta > 0 ? 30 : -30;
-    step(delta);
-    rotateKnob(knob, angleDelta);
 
     holdTimer = setTimeout(() => {
+        if (step(delta)) rotateKnob(knob, angleDelta);
         holdRepeat = setInterval(() => {
-            step(delta);
-            rotateKnob(knob, angleDelta);
+            if (step(delta)) rotateKnob(knob, angleDelta);
         }, HOLD_INTERVAL);
     }, HOLD_DELAY);
 }
