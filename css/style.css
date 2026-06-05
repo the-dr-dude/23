@@ -106,6 +106,7 @@ body {
   z-index: 3;
   cursor: grab;
   transform-origin: 52.5% 205%;
+  transition: transform 80ms linear;
 }
 
 #small-knob {
