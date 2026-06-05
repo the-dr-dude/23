@@ -102,18 +102,16 @@ body {
   left: 70%;
   z-index: 3;
   cursor: grab;
-  transform-origin: center center;
+  transform-origin: 52.5% 205%;
 }
 
 #small-knob {
   position: absolute;
-  width: 1.2%;
-  top: 68%;
-  left: 75.5%;
+  width: 4.57%;
+  top: 67.85%;
+  left: 68.74%;
   z-index: 3;
-  cursor: grab;
-  transform-origin: center center;
-  pointer-events: none;
+  transform-origin: 50.63% 25%;
 }
 
 .zone {
