@@ -34,10 +34,6 @@ function renderParagraph(raw) {
     return p;
 }
 
-fetch('letter.json')
-    .then(r => r.json())
-    .then(letter => {
-        letter.paragraphs.forEach(raw => {
-            bodyEl.appendChild(renderParagraph(raw));
-        });
-    });
+LETTER.paragraphs.forEach(raw => {
+    bodyEl.appendChild(renderParagraph(raw));
+});

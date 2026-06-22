@@ -1,4 +1,4 @@
-{
+const LETTER = {
   "paragraphs": [
     "There are things I notice about you that I don't know how to say out loud, so I wrote them down instead. Each one lives somewhere on the dial.",
     "Start anywhere you want. But if you don't know where to begin, try looking for <tip id=\"1\" /> -- I think you'll recognize it.",
@@ -7,4 +7,4 @@
     "Some of them you'll stumble across by accident. Those ones are fine too.",
     "All of them are true."
   ]
-}
+};
