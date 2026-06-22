@@ -1,5 +1,6 @@
 const { reasons } = JSON.parse(decodeURIComponent(escape(atob(REASONS_DATA))));
 const reasonById = new Map(reasons.map(r => [r.id, r]));
+const found = getFound();
 
 const bodyEl = document.getElementById('letter-body');
 
@@ -18,12 +19,18 @@ function renderParagraph(raw) {
             p.appendChild(document.createTextNode(raw.slice(lastIndex, match.index)));
         }
 
-        const reason = reasonById.get(id);
         const span = document.createElement('span');
         span.className = 'tip';
-        span.textContent = reason && reason.hint ? reason.hint : '???';
-        p.appendChild(span);
 
+        if (found.has(id)) {
+            const reason = reasonById.get(id);
+            span.textContent = reason ? reason.title : '???';
+            span.classList.add('found');
+        } else {
+            span.textContent = TIPS[id] || '...';
+        }
+
+        p.appendChild(span);
         lastIndex = match.index + full.length;
     }
 
