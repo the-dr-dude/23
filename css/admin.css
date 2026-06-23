@@ -4,6 +4,22 @@
   opacity: 0.6;
 }
 
+.reset {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #a13a3a;
+  background: transparent;
+  color: #a13a3a;
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.reset:active {
+  transform: translateY(1px);
+}
+
 #entries li.found {
   border-left: 3px solid #2d6a2d;
 }

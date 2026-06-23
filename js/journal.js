@@ -1,4 +1,4 @@
-const { reasons } = JSON.parse(atob(REASONS_DATA));
+const { reasons } = JSON.parse(decodeURIComponent(escape(atob(REASONS_DATA))));
 const byId = new Map(reasons.map(r => [r.id, r]));
 
 const listEl = document.getElementById('entries');

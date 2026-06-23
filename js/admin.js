@@ -1,15 +1,17 @@
-const ADMIN_PASS = 'changeme';
+const ADMIN_PASS = 'supersecretpassword';
 
 if (prompt('Password') !== ADMIN_PASS) {
     location.replace('index.html');
 }
 
-const { reasons } = JSON.parse(atob(REASONS_DATA));
+const { reasons } = JSON.parse(decodeURIComponent(escape(atob(REASONS_DATA))));
 
-document.addEventListener('DOMContentLoaded', () => {
+function render() {
     const found = getFound();
     const list = document.getElementById('entries');
     const sorted = [...reasons].sort((a, b) => a.frequency - b.frequency);
+
+    list.innerHTML = '';
 
     for (const r of sorted) {
         const isFound = found.has(r.id);
@@ -35,4 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('counter').textContent = `${found.size} / ${reasons.length}`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    render();
+
+    document.getElementById('reset-btn').addEventListener('click', () => {
+        if (!confirm('Reset all progress? This cannot be undone.')) return;
+        clearFound();
+        render();
+    });
 });

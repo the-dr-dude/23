@@ -50,6 +50,10 @@ function showPolaroid(polaroid) {
     polaroidEl.classList.add('visible');
 }
 
+polaroidEl.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    polaroidEl.classList.remove('visible');
+}, { passive: false });
 polaroidEl.addEventListener('click', () => {
     polaroidEl.classList.remove('visible');
 });
@@ -164,6 +168,8 @@ function bindZone(id, delta, knob) {
 }
 
 document.addEventListener('mouseup', cancelZone);
+document.addEventListener('touchend', cancelZone);
+document.addEventListener('touchcancel', cancelZone);
 
 document.addEventListener('DOMContentLoaded', () => {
     setFrequency(FREQ_MIN);

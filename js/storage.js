@@ -22,6 +22,10 @@ function addFound(id) {
     return true;
 }
 
+function clearFound() {
+    localStorage.removeItem(STORAGE_KEY);
+}
+
 function exportFound() {
     const ids = [...getFound()].sort((a, b) => a - b);
     return btoa(JSON.stringify(ids));
