@@ -1,4 +1,4 @@
-const { reasons } = JSON.parse(atob(REASONS_DATA));
+const { reasons } = JSON.parse(decodeURIComponent(escape(atob(REASONS_DATA))));
 const freqMap = new Map(reasons.map(r => [r.frequency.toFixed(1), r]));
 
 const messageEl = document.getElementById('message');
@@ -12,6 +12,21 @@ function revealJournal() {
     requestAnimationFrame(() => journalLink.classList.add('visible'));
 }
 
+const letterLink = document.getElementById('letter-link');
+const LETTER_UNLOCK_FREQ = 23.6;
+const LETTER_UNLOCK_KEY = 'tiny-radio-letter-unlocked';
+
+function revealLetter(animate = true) {
+    if (!letterLink || letterLink.classList.contains('visible')) return;
+    letterLink.classList.add('revealed');
+    if (animate) {
+        requestAnimationFrame(() => letterLink.classList.add('visible'));
+    } else {
+        letterLink.classList.add('visible');
+    }
+    localStorage.setItem(LETTER_UNLOCK_KEY, '1');
+}
+
 function showMessage(title, text) {
     msgTitle.textContent = title;
     msgText.textContent = text;
@@ -21,6 +36,23 @@ function showMessage(title, text) {
 function hideMessage() {
     messageEl.classList.remove('visible');
 }
+
+const polaroidEl = document.getElementById('polaroid');
+const polaroidImg = document.getElementById('polaroid-img');
+const polaroidCaption = document.getElementById('polaroid-caption');
+function showPolaroid(polaroid) {
+    if (!polaroid || !polaroidEl) {
+        if (polaroidEl) polaroidEl.classList.remove('visible');
+        return;
+    }
+    polaroidImg.src = polaroid.image;
+    polaroidCaption.textContent = polaroid.caption || '';
+    polaroidEl.classList.add('visible');
+}
+
+polaroidEl.addEventListener('click', () => {
+    polaroidEl.classList.remove('visible');
+});
 
 const FREQ_MIN = 1.0;
 const FREQ_MAX = 135.0;
@@ -49,6 +81,7 @@ function setFrequency(val) {
     const t = (frequency - FREQ_MIN) / (FREQ_MAX - FREQ_MIN);
     const pct = NEEDLE_PCT_MIN + t * (NEEDLE_PCT_MAX - NEEDLE_PCT_MIN);
     needle.style.setProperty('--needle-x', pct.toFixed(4) + '%');
+    if (frequency === LETTER_UNLOCK_FREQ) revealLetter();
 }
 
 function step(delta) {
@@ -73,6 +106,8 @@ let activeDelta = 0;
 let activeKnob = null;
 
 function startZone(delta, knob) {
+    clearTimeout(holdTimer);
+    clearInterval(holdRepeat);
     activeZone = true;
     activeHeld = false;
     activeDelta = delta;
@@ -133,6 +168,7 @@ document.addEventListener('mouseup', cancelZone);
 document.addEventListener('DOMContentLoaded', () => {
     setFrequency(FREQ_MIN);
     if (getFound().size > 0) revealJournal();
+    if (localStorage.getItem(LETTER_UNLOCK_KEY) === '1') revealLetter(false);
 
     bindZone('zone-big-back', -STEP_BIG, bigKnob);
     bindZone('zone-big-forward', +STEP_BIG, bigKnob);
@@ -158,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showMessage(entry.title, entry.text);
         addFound(entry.id);
         revealJournal();
+        showPolaroid(entry.polaroid);
     };
     redBtn.addEventListener('mousedown', fireRedBtn);
     redBtn.addEventListener('touchstart', fireRedBtn, { passive: false });

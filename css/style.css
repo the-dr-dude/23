@@ -85,6 +85,54 @@ body {
   opacity: 1;
 }
 
+#polaroid {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -46%) rotate(-3deg);
+  transition: opacity 450ms ease, transform 450ms ease;
+  z-index: 30;
+  cursor: pointer;
+}
+
+#polaroid.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) rotate(-2deg);
+}
+
+#polaroid-frame {
+  background: #f6f3e3;
+  padding: 10px 10px 28px;
+  width: 58%;
+  max-width: 220px;
+  box-shadow: 0 8px 22px rgba(61, 61, 40, 0.28);
+  border-radius: 3px;
+}
+
+#polaroid-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  background: #d8d2b8;
+  border-radius: 1px;
+}
+
+#polaroid-caption {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3d3d28;
+  text-align: center;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
 #msg-title {
   font-size: 1.1rem;
   font-weight: 700;
@@ -144,6 +192,7 @@ body {
   cursor: grab;
   transform-origin: 52.5% 205%;
   transition: transform 80ms linear;
+  touch-action: manipulation;
 }
 
 #small-knob {
@@ -153,6 +202,7 @@ body {
   left: 68.74%;
   z-index: 13;
   transform-origin: 50.63% 25%;
+  touch-action: manipulation;
 }
 
 .btn {
@@ -161,6 +211,8 @@ body {
   top: 36.55%;
   z-index: 11;
   transition: transform 60ms linear;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn.pressed {
@@ -178,6 +230,8 @@ body {
   width: 50%;
   height: 50%;
   z-index: 10;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #journal-link {
@@ -197,6 +251,7 @@ body {
   transition: opacity 600ms ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   text-decoration: none;
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -205,6 +260,35 @@ body {
 }
 
 #journal-link.visible {
+  opacity: 1;
+}
+
+#letter-link {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #3d3d28;
+  color: #ece9d8;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 600ms ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#letter-link.revealed {
+  display: flex;
+}
+
+#letter-link.visible {
   opacity: 1;
 }
 
