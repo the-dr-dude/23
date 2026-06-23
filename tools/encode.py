@@ -5,7 +5,7 @@ with open("reasons.json", "r") as f:
 
 encoded = base64.b64encode(raw.encode()).decode()
 
-with open("data.js", "w") as f:
+with open("js/data.js", "w") as f:
     f.write(f'const REASONS_DATA = "{encoded}";')
 
 print("done")
