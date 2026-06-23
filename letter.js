@@ -1,10 +1,9 @@
 const LETTER = {
   "paragraphs": [
-    "There are things I notice about you that I don't know how to say out loud, so I wrote them down instead. Each one lives somewhere on the dial.",
-    "Start anywhere you want. But if you don't know where to begin, try looking for <tip id=\"1\" /> -- I think you'll recognize it.",
-    "There's also one about <tip id=\"2\" />, because it's the first thing I see every time.",
-    "And somewhere further along the band there's one I saved for <tip id=\"7\" />, because that day changed everything.",
-    "Some of them you'll stumble across by accident. Those ones are fine too.",
-    "All of them are true."
+    "HAPPY BIRTHDAY AIDANAAA!!",
+    "We usually write big texts on our birthdays, but I wanted to do something differnent this time. I wanted to do something that showed I care about you, and that I know how to make a proper gift to the person I love. Anyway a birthday would not feel good without a big message, so I decided to write you a letter and make a game for it!",
+    "I hope you like it and please tell me if you need help my angel but I know you can figure it out on your own. Good luck! PS: The dates are in the form 170.8 for 17/08.",
+    "At first, I wanted to make just a game where you could find <tip id=\"1\" />",
+    "Final Phrase"
   ]
 };
